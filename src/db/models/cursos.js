@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         as: 'materia',
         foreignKey: 'materiaId'
       })
+      Cursos.belongsToMany(models.Profesores, { through: 'Curso_Profesor' });
     }
+    
   }
   Cursos.init({
     comision: DataTypes.STRING,
