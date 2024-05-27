@@ -20,9 +20,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cursos.init({
     comision: DataTypes.STRING,
-    turno: DataTypes.STRING,
-    fechaInicio: DataTypes.DATE,
-    fechaFin: DataTypes.DATE
+    turno: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    fechaInicio: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    fechaFin: {
+      type: DataTypes.DATE,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Cursos',

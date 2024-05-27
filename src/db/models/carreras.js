@@ -17,9 +17,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Carreras.init({
-    nombre: DataTypes.STRING,
-    grado: DataTypes.STRING,
-    universidad: DataTypes.STRING
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    grado: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    universidad: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Carreras',

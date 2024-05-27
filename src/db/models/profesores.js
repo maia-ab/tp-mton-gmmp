@@ -14,10 +14,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Profesores.init({
-    nombre: DataTypes.STRING,
-    fechaNacimiento: DataTypes.DATE,
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    fechaNacimiento: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
     legajo: DataTypes.NUMBER,
-    activo: DataTypes.BOOLEAN
+    activo: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Profesores',
