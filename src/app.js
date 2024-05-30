@@ -3,14 +3,14 @@ const db = require('./db/models')
 const carrerasRoute = require('./routes/carreras.route')
 const materiaRoute = require('./routes/materia.route')
 const profesoresRoute = require('./routes/profesores.route')
-//const cursosRoute = require('./routes/cursos.route')
+const cursosRoute = require('./routes/cursos.route')
 
 const app = express();
 app.use(express.json())
 app.use(carrerasRoute)
 app.use(materiaRoute)
 app.use(profesoresRoute)
-//app.use(cursosRoute)
+app.use(cursosRoute)
 
 
 
