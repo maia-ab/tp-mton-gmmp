@@ -1,5 +1,5 @@
 const {Materia} = require('../db/models')
-const {Curso} = require('../db/models')
+const {Cursos} = require('../db/models')
 
 const controller = {}
 
@@ -38,9 +38,9 @@ const crearCursoEnMateriaById = async (req, res) => {
     if(!materia){
         res.status(404).json(`La materia con id ${id} no existe`)
     }
-    const nuevoCurso = await Curso.create({...req.body, materiaId: id})
+    const nuevoCurso = await Cursos.create({...req.body, materiaId: id})
     const materiaActualizada = await Materia.findByPk (id, {
-        include: { model: Curso, as: 'cursos'}
+        include: { model: Cursos, as: 'cursos'}
     });
     res.status(201).json(materiaActualizada)
     
@@ -50,25 +50,12 @@ controller.crearCursoEnMateriaById = crearCursoEnMateriaById
 const getCursosEnMateriaById = async (req, res) => {
     const id = req.params.id
     const materia  = await Materia.findByPk(id, {
-        include: {model: Curso, as: 'cursos'}
+        include: {model: Cursos, as: 'cursos'}
     })
     const cursos = materia.cursos
 
     res.status(200).json(cursos)
 }
 controller.getCursosEnMateriaById = getCursosEnMateriaById
-
-
-// const getMateriasDeCarreraById = async (req, res) => {
-//     const id = req.params.id
-//     const carrera  = await Carreras.findByPk(id, {
-//         include: {model: Materia, as: 'materias'}
-//     })
-//     const materias = carrera.materias
-
-//     res.status(200).json(materias)
-    
-// }
-// controller.getMateriasDeCarreraById = getMateriasDeCarreraById
 
 module.exports = controller
