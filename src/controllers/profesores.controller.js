@@ -1,4 +1,5 @@
 const {Profesores} = require('../db/models')
+const {Cursos} = require('../db/models')
 
 const controller = {}
 
@@ -50,6 +51,17 @@ const eliminarProfesor = async (req, res) => {
 }
 
 controller.eliminarProfesor = eliminarProfesor;
+
+const getCursosEnProfesoresById = async (req, res) => {
+    const id = req.params.id
+    const profesor  = await Profesores.findByPk(id, {
+        include: {model: Cursos, as: 'cursos'}
+    })
+    const cursos = profesor.cursos
+
+    res.status(200).json(cursos)
+}
+controller.getCursosEnProfesoresById = getCursosEnProfesoresById
 
 
 module.exports = controller

@@ -7,4 +7,6 @@ route.get('/cursos/:id', cursosController.cursoById)
 route.delete('/cursos/:id', cursosController.deleteCursoById)
 route.put('/cursos/:id', cursosController.putCursoById)
 
+route.get('/cursos/:id/profesores', cursosController.getProfesoresEnCursoById)
+
 module.exports = route

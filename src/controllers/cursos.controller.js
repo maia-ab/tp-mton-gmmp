@@ -1,4 +1,5 @@
 const {Cursos} = require('../db/models')
+const {Profesores} = require('../db/models')
 
 const controller = {}
 
@@ -38,5 +39,16 @@ const putCursoById = async (req, res) => {
 }
 
 controller.putCursoById = putCursoById
+
+const getProfesoresEnCursoById = async (req, res) => {
+    const id = req.params.id
+    const curso  = await Cursos.findByPk(id, {
+        include: {model: Profesores, as: 'profesores'}
+    })
+    const profesores = curso.profesores
+
+    res.status(202).json(profesores) // Por qué 202??
+}
+controller.getProfesoresEnCursoById = getProfesoresEnCursoById
 
 module.exports = controller

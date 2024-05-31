@@ -7,5 +7,6 @@ route.get('/profesores/:id', profesoresController.profesorById)
 route.post('/profesores', profesoresController.crearProfesor)
 route.put('/profesores/:id', profesoresController.actualizarProfesor)
 route.delete('/profesores/:id', profesoresController.eliminarProfesor)
+route.get('/cursos/:id/profesores', profesoresController.getCursosEnProfesoresById)
 
 module.exports = route
