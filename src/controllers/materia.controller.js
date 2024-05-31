@@ -1,4 +1,5 @@
 const {Materia} = require('../db/models')
+const {Curso} = require('../db/models')
 
 const controller = {}
 
@@ -30,5 +31,29 @@ const deleteMateriaById = async (req, res) => {
     }
 }
 controller.deleteMateriaById = deleteMateriaById
+
+const crearCursoEnMateriaById = async (req, res) => {
+    const id = req.params.id
+    const materia = await Materia.findByPk(id);
+    if(!materia){
+        res.status(404).json(`La materia con id ${id} no existe`)
+    }
+    const nuevoCurso = await Curso.create({...req.body, materiaId: id})
+    const materiaActualizada = await Materia.findByPk (id, {
+        include: { model: Curso, as: 'cursos'}
+    });
+    res.status(201).json(materiaActualizada)
+    
+}
+controller.crearCursoEnMateriaById = crearCursoEnMateriaById
+
+const getCursosEnMateriaById = async (req, res) => {
+    const id = req.params.id
+    
+    
+    
+}
+controller.getCursosEnMateriaById = getCursosEnMateriaById
+
 
 module.exports = controller
