@@ -37,7 +37,6 @@ const putCursoById = async (req, res) => {
     res.status(200).json(cursoActualizar)      
 }
 
-
 controller.putCursoById = putCursoById
 
 module.exports = controller

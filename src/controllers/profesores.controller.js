@@ -35,6 +35,7 @@ const actualizarProfesor = async (req, res) => {
 
     res.status(200).json(profesor);
 }
+controller.actualizarProfesor = actualizarProfesor
 
 const eliminarProfesor = async (req, res) => {
     const id = req.params.id;

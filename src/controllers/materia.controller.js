@@ -49,11 +49,26 @@ controller.crearCursoEnMateriaById = crearCursoEnMateriaById
 
 const getCursosEnMateriaById = async (req, res) => {
     const id = req.params.id
-    
-    
-    
+    const materia  = await Materia.findByPk(id, {
+        include: {model: Curso, as: 'cursos'}
+    })
+    const cursos = materia.cursos
+
+    res.status(200).json(cursos)
 }
 controller.getCursosEnMateriaById = getCursosEnMateriaById
 
+
+// const getMateriasDeCarreraById = async (req, res) => {
+//     const id = req.params.id
+//     const carrera  = await Carreras.findByPk(id, {
+//         include: {model: Materia, as: 'materias'}
+//     })
+//     const materias = carrera.materias
+
+//     res.status(200).json(materias)
+    
+// }
+// controller.getMateriasDeCarreraById = getMateriasDeCarreraById
 
 module.exports = controller
