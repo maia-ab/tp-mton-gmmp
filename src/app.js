@@ -18,7 +18,7 @@ app.listen(3000, async ()=>{
 console.log(`La aplicacion arranco correctamente en el puerto 3000`);
     try{
         await db.sequelize.authenticate()
-        await db.sequelize.sync({force:true})
+        await db.sequelize.sync({force:true}) // BORRAR CUANDO TERMINEMOS
         const carrera = await db.Carreras.create({
             nombre: 'Cosme Fulanito',
             grado: 'AAAAAAA',
