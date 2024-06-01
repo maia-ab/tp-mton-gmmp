@@ -1,5 +1,5 @@
 const {Materia} = require('../db/models')
-const {Curso} = require('../db/models')
+const {Cursos} = require('../db/models')
 
 const controller = {}
 
@@ -23,24 +23,16 @@ controller.crearMateria = crearMateria
 
 const deleteMateriaById = async (req, res) => {
     const id = req.params.id
-    const row = await Materia.destroy({where: {id}})
-    if(row){
-        res.status(200).json(`La materia con id ${id} se borró con éxito`)
-    }else{
-        res.status(404).json(`La materia con id ${id} no existe`)
-    }
+    await Materia.destroy({where: {id}}) // Probar
+    res.status(200).json(`La materia con id ${id} se borró con éxito`)
 }
 controller.deleteMateriaById = deleteMateriaById
 
 const crearCursoEnMateriaById = async (req, res) => {
     const id = req.params.id
-    const materia = await Materia.findByPk(id);
-    if(!materia){
-        res.status(404).json(`La materia con id ${id} no existe`)
-    }
-    const nuevoCurso = await Curso.create({...req.body, materiaId: id})
+    await Cursos.create({...req.body, materiaId: id}) // Funciona sin esto?
     const materiaActualizada = await Materia.findByPk (id, {
-        include: { model: Curso, as: 'cursos'}
+        include: { model: Cursos, as: 'cursos'}
     });
     res.status(201).json(materiaActualizada)
     
@@ -49,11 +41,13 @@ controller.crearCursoEnMateriaById = crearCursoEnMateriaById
 
 const getCursosEnMateriaById = async (req, res) => {
     const id = req.params.id
-    
-    
-    
+    const materia  = await Materia.findByPk(id, {
+        include: {model: Cursos, as: 'cursos'}
+    })
+    const cursos = materia.cursos
+
+    res.status(200).json(cursos)
 }
 controller.getCursosEnMateriaById = getCursosEnMateriaById
-
 
 module.exports = controller
