@@ -1,16 +1,17 @@
-const {Cursos} = require('../db/models')
+const {Cursos} = require('../db/models') 
 const {Profesores} = require('../db/models')
 
 const controller = {}
 
-const getAllCursos = async (req, res) => {
+const getAllCursos = async (req, res) => { 
     res.status(200).json(await Cursos.findAll({}))
 }
 controller.getAllCursos = getAllCursos
 
 const cursoById = async(req, res) => {
     const id = req.params.id
-    res.status(200).json(await Cursos.findByPk(id))
+    const curso = await Cursos.findByPk(id)
+    res.status(200).json(curso)
 }
 
 controller.cursoById = cursoById
@@ -43,5 +44,26 @@ const getProfesoresEnCursoById = async (req, res) => {
     res.status(202).json(profesores) // Por qué 202??
 }
 controller.getProfesoresEnCursoById = getProfesoresEnCursoById
+
+/*const asociarProfesores = async(req, res) => {
+    const { profesores }= req.body
+    const id = req.params.id
+    profesores.map(async (profe) => {
+    await Curso_Profesor.create({cursoId: id, profesoreId: profe.id})
+   })
+   res.status(200).json('Se asocio con exito')
+}*/
+const asociarProfesores = async(req, res) => {
+   /* const { profesores } = req.body;
+    const id = req.params.id
+    const curso = await Cursos.findByPk(id)
+
+    profesores.map((profesor) => {
+        profesor = { ...profesor, cursoId: id}
+    })
+    cursoActualizado = { ...curso, profesores: profesores}
+    res.status(200).json(await Cursos.findByPk(id), {include:{ model: Profesores, as: 'profesores'}})*/
+}
+controller.asociarProfesores = asociarProfesores
 
 module.exports = controller
