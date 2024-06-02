@@ -6,7 +6,7 @@ const existsById = (Model) => {
         const modelName = Model.modelName || (Model.options.name && Model.options.name.singular);
         if (!instancia) {
             return res.status(404).json({
-                mensaje: `El ${modelName} con id ${id} no existe`
+                mensaje: `${modelName} con id ${id} no existe.`
             }
             )
         }
@@ -31,5 +31,26 @@ const validaSchema = (schema) => {
     }
 }
 
+const existeRelacionConRegistro = (Model, ModelList) => {
 
-module.exports = {existsById, validaSchema}
+    return async (req, res, next) => {
+        const id = req.params.id
+        const modelName = Model.modelName || (Model.options.name && Model.options.name.singular);
+        
+        const instancia = await Model.findByPk(id, {
+            include: { model: ModelList, as: ModelList.name},
+        })
+        const lista = instancia[ModelList.name]
+        
+        if(lista.length){
+            return res.status(500).json({
+                mensaje: `${modelName} con id ${id} tiene relaciones existentes.`
+            }
+        )
+        } 
+
+        next();
+    };
+};
+
+module.exports = {existsById, validaSchema, existeRelacionConRegistro}

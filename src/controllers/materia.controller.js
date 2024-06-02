@@ -32,7 +32,7 @@ const crearCursoEnMateriaById = async (req, res) => {
     const id = req.params.id
     await Cursos.create({...req.body, materiaId: id}) // Funciona sin esto?
     const materiaActualizada = await Materia.findByPk (id, {
-        include: { model: Cursos, as: 'cursos'}
+        include: { model: Cursos, as: 'Cursos'}
     });
     res.status(201).json(materiaActualizada)
     
@@ -42,9 +42,9 @@ controller.crearCursoEnMateriaById = crearCursoEnMateriaById
 const getCursosEnMateriaById = async (req, res) => {
     const id = req.params.id
     const materia  = await Materia.findByPk(id, {
-        include: {model: Cursos, as: 'cursos'}
+        include: {model: Cursos, as: 'Cursos'}
     })
-    const cursos = materia.cursos
+    const cursos = materia.Cursos
 
     res.status(200).json(cursos)
 }
