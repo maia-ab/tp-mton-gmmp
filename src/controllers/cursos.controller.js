@@ -33,19 +33,9 @@ const putCursoById = async (req, res) => {
 
 controller.putCursoById = putCursoById;
 
-const getProfesoresEnCursoById = async (req, res) => {
-  const id = req.params.id;
-  const curso = await Cursos.findByPk(id, {
-    include: { model: Profesores, as: "Profesores" },
-  });
-  const profesores = curso.Profesores;
-
-  res.status(202).json(profesores); // Por qué 202??
-};
-controller.getProfesoresEnCursoById = getProfesoresEnCursoById;
 
 /*const asociarProfesores = async(req, res) => {
-   const { profesores } = req.body;
+    const { profesores } = req.body;
     const id = req.params.id
     const curso = await Cursos.findByPk(id, {include:{ model: Profesores, as: 'Profesores'}})
     
@@ -61,25 +51,35 @@ const asociarProfesores = async (req, res) => {
   const { profesores } = req.body;
   const id = req.params.id;
   const curso = await Cursos.findByPk(id, {
-    include: { model: Profesores, as: "Profesores" },
+      include: { model: Profesores, as: "Profesores" },
   });
 
-
-
+  
+  
   for (const profesor of profesores) {
-    const existe = await Profesores.findOne({ where: { id: profesor.id } });
-
-    if(existe){
-        await curso.addProfesores(profesor.id)
+      const existe = await Profesores.findOne({ where: { id: profesor.id } });
+      
+      if(existe){
+          await curso.addProfesores(profesor.id)
         }
     };
     cursoAct = await Cursos.findByPk(id, {
         include: { model: Profesores, as: "Profesores" },
     });
-
+    
     res.status(200).json(cursoAct);
 }
 
 controller.asociarProfesores = asociarProfesores;
+
+const getProfesoresEnCursoById = async (req, res) => {
+  const id = req.params.id;
+  const curso = await Cursos.findByPk(id, {
+    include: { model: Profesores, as: "Profesores" },
+  });
+
+  res.status(202).json(curso); // Por qué 202??
+};
+controller.getProfesoresEnCursoById = getProfesoresEnCursoById;
 
 module.exports = controller;
