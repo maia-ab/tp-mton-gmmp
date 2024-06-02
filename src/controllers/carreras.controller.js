@@ -4,13 +4,13 @@ const {Materia} = require('../db/models')
 const controller = {}
 
 const getAllCarreras = async (req, res) => {
-    res.status(200).json(await Carreras.findAll({}))
+    res.status(200).json(await Carreras.findAll({include:{ model: Materia, as: 'materias'}}))
 }
 controller.getAllCarreras = getAllCarreras
 
 const carreraById = async(req, res) => {
     const id = req.params.id
-    res.status(200).json(await Carreras.findByPk(id))
+    res.status(200).json(await Carreras.findByPk(id, {include:{ model: Materia, as: 'materias'}}))
 }
 
 controller.carreraById = carreraById
