@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config();
 const db = require('./db/models')
 const carrerasRoute = require('./routes/carreras.route')
 const materiaRoute = require('./routes/materia.route')
@@ -12,9 +13,9 @@ app.use(materiaRoute)
 app.use(profesoresRoute)
 app.use(cursosRoute)
 
+const PORT = process.env.PORT || 3000;
 
-
-app.listen(3000, async ()=>{
+app.listen(PORT, async ()=>{
 console.log(`La aplicacion arranco correctamente en el puerto 3000`);
     try{
         await db.sequelize.authenticate()

@@ -3,7 +3,7 @@ const {Profesores, Cursos} = require('../db/models')
 const profesoresController = require('../controllers/profesores.controller')
 const middlewareProfesores = require('../middlewares/middlewares')
 const profesoresSchema = require('../schemas/profesores.schemas')
-const cursosSchema = require('../schemas/cursos.schemas')
+
 const route = Router()
 
 route.get('/profesores', profesoresController.getAllProfesores)
