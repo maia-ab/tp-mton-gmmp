@@ -1,5 +1,5 @@
-const {Cursos} = require('../db/models') 
-const {Profesores} = require('../db/models')
+const { Where } = require('sequelize/lib/utils')
+const {Profesores, Cursos, Materias} = require('../db/models')
 
 const controller = {}
 
@@ -45,25 +45,29 @@ const getProfesoresEnCursoById = async (req, res) => {
 }
 controller.getProfesoresEnCursoById = getProfesoresEnCursoById
 
-/*const asociarProfesores = async(req, res) => {
-    const { profesores }= req.body
+/*
+const asociarProfesores = async(req, res) => {
+    const  { profesores } = req.body
     const id = req.params.id
     profesores.map(async (profe) => {
     await Curso_Profesor.create({cursoId: id, profesoreId: profe.id})
-   })
-   res.status(200).json('Se asocio con exito')
-}*/
-const asociarProfesores = async(req, res) => {
-   /* const { profesores } = req.body;
-    const id = req.params.id
-    const curso = await Cursos.findByPk(id)
-
-    profesores.map((profesor) => {
-        profesor = { ...profesor, cursoId: id}
     })
-    cursoActualizado = { ...curso, profesores: profesores}
-    res.status(200).json(await Cursos.findByPk(id), {include:{ model: Profesores, as: 'profesores'}})*/
+    res.status(200).json('Se asocio con exito')
+}*/
+
+const asociarProfesores = async(req, res) => {
+    const { profesores } = req.body;
+    const id = req.params.id
+    const curso = await Cursos.findByPk(id, {include:{ model: Profesores, as: 'Profesores'}})
+    
+    for(const profesor of profesores){
+        await curso.addProfesores(profesor.id)
+    }
+    cursoAct = await Cursos.findByPk(id, {include:{ model: Profesores, as: 'Profesores'}})
+
+    res.status(200).json(cursoAct)
 }
+
 controller.asociarProfesores = asociarProfesores
 
 module.exports = controller
