@@ -1,5 +1,5 @@
-const { Where } = require('sequelize/lib/utils')
-const {Profesores, Cursos, Materias} = require('../db/models')
+//const { Where } = require('sequelize/lib/utils')
+const {Profesores, Cursos} = require('../db/models')
 
 const controller = {}
 
@@ -37,23 +37,13 @@ controller.putCursoById = putCursoById
 const getProfesoresEnCursoById = async (req, res) => {
     const id = req.params.id
     const curso  = await Cursos.findByPk(id, {
-        include: {model: Profesores, as: 'profesores'}
+        include: {model: Profesores, as: 'Profesores'}
     })
-    const profesores = curso.profesores
+    const profesores = curso.Profesores
 
     res.status(202).json(profesores) // Por qué 202??
 }
 controller.getProfesoresEnCursoById = getProfesoresEnCursoById
-
-/*
-const asociarProfesores = async(req, res) => {
-    const  { profesores } = req.body
-    const id = req.params.id
-    profesores.map(async (profe) => {
-    await Curso_Profesor.create({cursoId: id, profesoreId: profe.id})
-    })
-    res.status(200).json('Se asocio con exito')
-}*/
 
 const asociarProfesores = async(req, res) => {
     const { profesores } = req.body;
