@@ -16,7 +16,7 @@ app.use(cursosRoute)
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, async ()=>{
-console.log(`La aplicacion arranco correctamente en el puerto 3000`);
+console.log(`La aplicacion arranco correctamente en el puerto ${PORT}`);
     try{
         await db.sequelize.authenticate()
         await db.sequelize.sync({force:true}) // BORRAR CUANDO TERMINEMOS
