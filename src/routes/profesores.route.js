@@ -11,6 +11,6 @@ route.get('/profesores/:id', middlewareProfesores.existsById(Profesores), profes
 route.post('/profesores', middlewareProfesores.validaSchema(profesoresSchema), profesoresController.crearProfesor)
 route.put('/profesores/:id', middlewareProfesores.existsById(Profesores), profesoresController.actualizarProfesor)
 route.delete('/profesores/:id', middlewareProfesores.existsById(Profesores), /*Agregar error 500 */ profesoresController.eliminarProfesor)
-route.get('/profesores/:id/cursos', middlewareProfesores.validaSchema(cursosSchema), profesoresController.getCursosEnProfesoresById)
+route.get('/profesores/:id/cursos', middlewareProfesores.existsById(Profesores), profesoresController.getCursosEnProfesoresById)
 
 module.exports = route

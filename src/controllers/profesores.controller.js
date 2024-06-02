@@ -47,11 +47,10 @@ controller.eliminarProfesor = eliminarProfesor;
 const getCursosEnProfesoresById = async (req, res) => {
     const id = req.params.id
     const profesor  = await Profesores.findByPk(id, {
-        include: {model: Cursos, as: 'cursos'}
+        include: {model: Cursos, as: 'Cursos'}
     })
-    const cursos = profesor.cursos
-
-    res.status(200).json(cursos)
+   
+    res.status(200).json(profesor)
 }
 controller.getCursosEnProfesoresById = getCursosEnProfesoresById
 
