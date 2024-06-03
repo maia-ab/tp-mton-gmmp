@@ -22,9 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false
     },
-    legajo: DataTypes.NUMBER,
+    legajo: DataTypes.INTEGER,
     activo: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TINYINT,
       allowNull: false
     }
   }, {

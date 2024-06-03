@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     cuatrimestral: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TINYINT,
       allowNull: false
     },
     anio: {
