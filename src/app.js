@@ -13,7 +13,7 @@ app.use(materiaRoute)
 app.use(profesoresRoute)
 app.use(cursosRoute)
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.NODE_LOCAL_PORT;
 
 app.listen(PORT, async ()=>{
 console.log(`La aplicacion arranco correctamente en el puerto ${PORT}`);
