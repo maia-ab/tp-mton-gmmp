@@ -1,5 +1,4 @@
-const {Carreras} = require('../db/models')
-const {Materia} = require('../db/models')
+const {Carreras, Materia} = require('../db/models')
 
 const controller = {}
 
@@ -24,8 +23,8 @@ controller.crearCarrera = crearCarrera
 
 const crearMateriaEnCarreraById = async (req, res) => {
     const id = req.params.id
-    const materia = await Materia.create({ ...req.body, carreraId: id})
-    const carrera  = await Carreras.findByPk(id)
+    await Materia.create({ ...req.body, carreraId: id})
+    
     const carreraActualizada = await Carreras.findByPk(id, {
         include: { model: Materia, as: 'materias' } 
     });

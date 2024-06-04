@@ -1,5 +1,4 @@
 const Joi = require('joi')
-const validateDate = require('../ultis/date.validator')
 
 const materiaSchema = Joi.object().keys({
     nombre: Joi.string().required().min(1).max(35).messages({

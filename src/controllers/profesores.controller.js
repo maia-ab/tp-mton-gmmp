@@ -1,5 +1,4 @@
-const {Profesores} = require('../db/models')
-const {Cursos} = require('../db/models')
+const {Profesores, Cursos} = require('../db/models')
 
 const controller = {}
 
@@ -12,7 +11,6 @@ const profesorById = async(req, res) => {
     const id = req.params.id
     res.status(200).json(await Profesores.findByPk(id))
 }
-
 controller.profesorById = profesorById
 
 const crearProfesor = async (req, res) => {
@@ -24,11 +22,10 @@ controller.crearProfesor = crearProfesor
 
 const actualizarProfesor = async (req, res) => {
     const id = req.params.id;
-    const datos = req.body;
+    const data = req.body;
 
     const profesor = await Profesores.findByPk(id);
-    await profesor.set(datos) // Esto sólo sirve si le pasas todos los datos, habría que ver si nos sirve o si queremos que se pueda modificar sólo uno. Interpreto que sirve porque en la consigna dice "modificar los datos", no "un dato".
-    await profesor.save(); // probar
+    await profesor.update(data);
 
     res.status(200).json(profesor);
 }
@@ -38,10 +35,9 @@ const eliminarProfesor = async (req, res) => {
     const id = req.params.id;
     const profesor = await Profesores.findByPk(id);
 
-    await profesor.destroy(); // probar
+    await profesor.destroy(); 
     res.status(200).json({ message: 'Profesor eliminado correctamente' });
 }
-
 controller.eliminarProfesor = eliminarProfesor;
 
 const getCursosEnProfesoresById = async (req, res) => {
@@ -49,7 +45,7 @@ const getCursosEnProfesoresById = async (req, res) => {
     const profesor  = await Profesores.findByPk(id, {
         include: {model: Cursos, as: 'Cursos'}
     })
-   
+    
     res.status(200).json(profesor)
 }
 controller.getCursosEnProfesoresById = getCursosEnProfesoresById
