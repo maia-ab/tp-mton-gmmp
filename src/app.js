@@ -21,7 +21,6 @@ console.log(`La aplicacion arranco correctamente en el puerto ${PORT}`);
     try{
         await db.sequelize.authenticate()
         await db.sequelize.sync({force:true})
-
     }catch(err){
         console.log(err)
     }
