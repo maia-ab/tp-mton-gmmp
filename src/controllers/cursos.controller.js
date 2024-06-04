@@ -1,4 +1,3 @@
-//const { Where } = require('sequelize/lib/utils')
 const { Profesores, Cursos } = require("../db/models");
 const controller = {};
 
@@ -12,12 +11,11 @@ const cursoById = async (req, res) => {
   const curso = await Cursos.findByPk(id);
   res.status(200).json(curso);
 };
-
 controller.cursoById = cursoById;
 
 const deleteCursoById = async (req, res) => {
   const id = req.params.id;
-  await Cursos.destroy({ where: { id } }); //Probar esto
+  await Cursos.destroy({ where: { id } }); 
   res.status(200).json(`El curso con id ${id} se borró con éxito`);
 };
 controller.deleteCursoById = deleteCursoById;
@@ -27,12 +25,17 @@ const putCursoById = async (req, res) => {
   const data = req.body;
 
   const cursoActualizar = await Cursos.findByPk(id);
-  await cursoActualizar.update(data); //es como hacer set y save en el mismo
+  await cursoActualizar.update(data); 
   res.status(200).json(cursoActualizar);
 };
-
 controller.putCursoById = putCursoById;
 
+
+/*
+-- Este es el método que hicimos originalmente en el que no se verifica si todos los profesores
+-- que mandamos en la lista existe.
+
+*/
 
 /*const asociarProfesores = async(req, res) => {
     const { profesores } = req.body;
@@ -78,7 +81,7 @@ const getProfesoresEnCursoById = async (req, res) => {
     include: { model: Profesores, as: "Profesores" },
   });
 
-  res.status(202).json(curso); // Por qué 202??
+  res.status(202).json(curso); //Entendemos que debería ser un código 200 pero en la consigna dice 202.
 };
 controller.getProfesoresEnCursoById = getProfesoresEnCursoById;
 
