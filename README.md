@@ -32,7 +32,7 @@ Si desea utilizar una base de datos no incluída en el proyecto, modifique el ar
 
 <h3><ins>Diagrama DER:</ins></h3>
 
-<img src="https://ibb.co/hWPqdBq"></img>
+<img src="assets/images/Screenshot 2024-06-02 195358.png"></img>
 
 
 
